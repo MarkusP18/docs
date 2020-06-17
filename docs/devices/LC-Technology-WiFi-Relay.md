@@ -76,12 +76,13 @@ Use the following device template, configureable in `Configure Other`:
 
 Add the following rules:
 ```
-on System#Boot do Backlog Baudrate 115200
-on SerialReceived#Data=41542B5253540D0A do SerialSend5 5749464920434f4e4e45435445440a5749464920474f542049500a41542b4349504d55583d310a41542b4349505345525645523d312c383038300a41542b43495053544f3d333630 endon
-on Power1#State=1 do SerialSend5 A00101A2 endon
-on Power1#State=0 do SerialSend5 A00100A1 endon
-on Power2#State=1 do SerialSend5 A00201A3 endon
-on Power2#State=0 do SerialSend5 A00200A2 endon
+Rule1
+ on System#Boot do Backlog Baudrate 115200
+ on SerialReceived#Data=41542B5253540D0A do SerialSend5 5749464920434f4e4e45435445440a5749464920474f542049500a41542b4349504d55583d310a41542b4349505345525645523d312c383038300a41542b43495053544f3d333630 endon
+ on Power1#State=1 do SerialSend5 A00101A2 endon
+ on Power1#State=0 do SerialSend5 A00100A1 endon
+ on Power2#State=1 do SerialSend5 A00201A3 endon
+ on Power2#State=0 do SerialSend5 A00200A2 endon
 ```
 
 Here's what the above code does line per line:
@@ -96,7 +97,10 @@ AT+CIPSTO=360
 ```
 * The PowerX#State=xxx... messages are triggers to send serial messages to the NUVOTON chip.
 
-Do not forget to enable the rule.
+Do not forget to enable the rule with 
+```
+Rule1 1
+```
 
 After the device receives the bypass key, it wouldn't immediately respond to commands. The ESP has to wait for the following return messages echoed back to Serial first:
 ```
